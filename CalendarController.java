@@ -1,17 +1,18 @@
 package sample;
 import javafx.fxml.FXML;
-
+import java.lang.String;
 
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 
-public class Controller {
+public class CalendarController {
 
     @FXML
-    public void CalendarClick(){
+    public void CalendarClick() {
         Main.initDateLayout(Main.getPrimaryStage());
-    }
 
+    }
 }

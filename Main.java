@@ -10,16 +10,18 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.SwipeEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 public class Main extends Application {
 
     private static Stage primaryStage; //главная сцена, используется в каждой процедуре
-    private static DatePicker DatePicker; //дата, получаемая при нажатии кнопки в тайле календаря
+    static DatePicker DatePicker; //дата, получаемая при нажатии кнопки в тайле календаря
 
     static Stage getPrimaryStage(){ // получение главной сцены (для .fxml кода)
         return primaryStage;
@@ -60,9 +62,11 @@ public class Main extends Application {
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(Main.class.getResource("day.fxml"));
-            BorderPane dayLayout = loader.load();
+            Pane dayLayout = loader.load();
 
-            dayLayout.setBottom(new TextArea(DatePicker.getValue().toString())); // запись с датой, выбранной в тайле календаря
+            //DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd LLLL yyyy");
+
+            //dayLayout.setBottom(new TextArea(DatePicker.getValue().format(formatter).toString())); // запись с датой, выбранной в тайле календаря
 
             Scene scene = new Scene(dayLayout);
             primaryStage.setScene(scene);
