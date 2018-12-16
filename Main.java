@@ -15,7 +15,6 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 public class Main extends Application {
@@ -35,38 +34,47 @@ public class Main extends Application {
         Main.primaryStage = primaryStage;
         Main.primaryStage.setTitle("Diary");
 
-        initCalendarLayout();
-    }
+        initMainLayout(primaryStage);
 
-    public void initCalendarLayout() { // запуск тайла календаря
+    }
+    public void initMainLayout(Stage primaryStage) { // запуск тайла календаря
         try {
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("calendar.fxml"));
-            BorderPane calendarLayout = loader.load();
+
+
+            FXMLLoader loader2 = new FXMLLoader();
+            loader2.setLocation(Main.class.getResource("calendar.fxml"));
+            BorderPane calendarLayout = loader2.load();
 
             DatePicker = new DatePicker(LocalDate.now());
             DatePickerSkin datePickerSkin = new DatePickerSkin(DatePicker);
             Node popupContent = datePickerSkin.getPopupContent();
-
             calendarLayout.setBottom(popupContent);
 
-            Scene scene = new Scene(calendarLayout);
-            primaryStage.setScene(scene);
+
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("sample.fxml"));
+            TabPane mainLayout = loader.load();
+
+
+            mainLayout.getTabs().get(0).setContent(calendarLayout);
+            Scene scene2 = new Scene(mainLayout);
+            primaryStage.setScene(scene2);
             primaryStage.show();
+
+
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
+
+
 
     public static void initDateLayout(Stage primaryStage) {// запуск тайла по дням
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(Main.class.getResource("day.fxml"));
             Pane dayLayout = loader.load();
-
-            //DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd LLLL yyyy");
-
-            //dayLayout.setBottom(new TextArea(DatePicker.getValue().format(formatter).toString())); // запись с датой, выбранной в тайле календаря
 
             Scene scene = new Scene(dayLayout);
             primaryStage.setScene(scene);
