@@ -17,6 +17,14 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Date;
 
+import sample.JavaToMySQL;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+
 public class Main extends Application {
 
     private static Stage primaryStage; //главная сцена, используется в каждой процедуре
@@ -31,10 +39,10 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) { //начало, запуск тайла календаря
-        Main.primaryStage = primaryStage;
-        Main.primaryStage.setTitle("Diary");
-
-        initMainLayout(primaryStage);
+        //Main.primaryStage = primaryStage;
+        //Main.primaryStage.setTitle("Diary");
+        JavaToMySQL.main();
+        //initMainLayout(primaryStage);
 
     }
     public void initMainLayout(Stage primaryStage) { // запуск тайла календаря
@@ -83,6 +91,7 @@ public class Main extends Application {
             e.printStackTrace();
         }
     }
+
 
     public static void main(String[] args) {
         launch(args);
