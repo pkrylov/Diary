@@ -3,6 +3,7 @@ package sample;
 import com.sun.javafx.scene.control.skin.DatePickerSkin;
 import javafx.application.Application;
 import javafx.event.EventHandler;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -29,6 +30,8 @@ public class Main extends Application {
 
     private static Stage primaryStage; //главная сцена, используется в каждой процедуре
     static DatePicker DatePicker; //дата, получаемая при нажатии кнопки в тайле календаря
+    static TabPane mainLayout;
+
 
     static Stage getPrimaryStage(){ // получение главной сцены (для .fxml кода)
         return primaryStage;
@@ -39,10 +42,10 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) { //начало, запуск тайла календаря
-        //Main.primaryStage = primaryStage;
-        //Main.primaryStage.setTitle("Diary");
-        JavaToMySQL.main();
-        //initMainLayout(primaryStage);
+        Main.primaryStage = primaryStage;
+        Main.primaryStage.setTitle("Diary");
+        //JavaToMySQL.main();
+        initMainLayout(primaryStage);
 
     }
     public void initMainLayout(Stage primaryStage) { // запуск тайла календаря
@@ -61,7 +64,7 @@ public class Main extends Application {
 
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(Main.class.getResource("sample.fxml"));
-            TabPane mainLayout = loader.load();
+            mainLayout = loader.load();
 
 
             mainLayout.getTabs().get(0).setContent(calendarLayout);
@@ -78,18 +81,14 @@ public class Main extends Application {
 
 
 
-    public static void initDateLayout(Stage primaryStage) {// запуск тайла по дням
-        try {
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("day.fxml"));
-            Pane dayLayout = loader.load();
+    public static void initDateLayout() {// запуск тайла по дням
 
-            Scene scene = new Scene(dayLayout);
+
+            mainLayout.getSelectionModel().select(2);
+            Scene scene = new Scene(mainLayout);
             primaryStage.setScene(scene);
             primaryStage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
     }
 
 
