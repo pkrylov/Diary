@@ -14,7 +14,10 @@ import javafx.scene.control.*;
 import javafx.scene.input.SwipeEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -34,7 +37,7 @@ public class Main extends Application {
     private static Stage primaryStage; //главная сцена, используется в каждой процедуре
     static DatePicker DatePicker; //дата, получаемая при нажатии кнопки в тайле календаря
     static TabPane mainLayout;
-    static BorderPane calendarLayout;
+    static Stage dialog;
     //public static final ObservableList<String> names = FXCollections.observableArrayList();
 
     static Stage getPrimaryStage(){ // получение главной сцены (для .fxml кода)
@@ -58,7 +61,7 @@ public class Main extends Application {
 
             FXMLLoader loader2 = new FXMLLoader();
             loader2.setLocation(Main.class.getResource("calendar.fxml"));
-            calendarLayout = loader2.load();
+            BorderPane calendarLayout = loader2.load();
 
             DatePicker = new DatePicker(LocalDate.now());
             DatePickerSkin datePickerSkin = new DatePickerSkin(DatePicker);
@@ -80,68 +83,57 @@ public class Main extends Application {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        initDateLayout(getPrimaryStage());
-        initMatrixLayout(getPrimaryStage());
     }
 
 
 
 
     public static void initDateLayout(Stage primaryStage) {// запуск тайла по дням
-try {
-    FXMLLoader loader2 = new FXMLLoader();
-    loader2.setLocation(Main.class.getResource("day2.fxml"));
-    GridPane dayLayout = loader2.load();
+    try {
+        FXMLLoader loader2 = new FXMLLoader();
+        loader2.setLocation(Main.class.getResource("day2.fxml"));
+        GridPane dayLayout = loader2.load();
+        JavaToMySQL jtmsql = new JavaToMySQL();
+        jtmsql.main();
+        // ListView<String> listView = new ListView<String>;
+        // dayLayout.
+        ObservableList<String> lefts = FXCollections.observableArrayList();
 
-    ObservableList<String> lefts = FXCollections.observableArrayList();
-    lefts = JavaToMySQL.TakeData("For Day");
-    final ListView<String> leftListView = new ListView<String>(lefts);
-    dayLayout.add(leftListView,1,0);
-    mainLayout.getTabs().get(2).setContent(dayLayout);
-    Scene scene = new Scene(mainLayout);
-    primaryStage.setScene(scene);
-    primaryStage.show();
-} catch (Exception e ){
+        lefts = jtmsql.TakeData();
+        final ListView<String> leftListView = new ListView<String>(lefts);
+        dayLayout.add(leftListView, 1, 0);
+
+        //listView.setVisible(false);
+        //names.addAll("123","345");
+        //names.addAll("567", "789");
+        //System.out.println(names);
+        //listView.setItems(names);
+        //System.out.println(listView);
+
+
+        mainLayout.getSelectionModel().select(2);
+        mainLayout.getTabs().get(2).setContent(dayLayout);
+        Scene scene = new Scene(mainLayout);
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    } catch (Exception e ){
     System.out.println(e);
 }
     }
+    public static void initDialogBox() {
 
-    public static void initMatrixLayout(Stage primaryStage) {// запуск тайла матрицы
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("matrix.fxml"));
-            GridPane matrixLayout = loader.load();
+            loader.setLocation(Main.class.getResource("addTask.fxml"));
 
-            ObservableList<String> ImpHur = FXCollections.observableArrayList();
-            ObservableList<String> ImpNHur = FXCollections.observableArrayList();
-            ObservableList<String> NImpHur = FXCollections.observableArrayList();
-            ObservableList<String> NImpNHur = FXCollections.observableArrayList();
-
-            ImpHur = JavaToMySQL.TakeData(JavaToMySQL.queryHurImp);
-            //System.out.println(ImpHur.toArray());
-            final ListView<String> HurImpListView = new ListView<String>(ImpHur);
-            matrixLayout.add(HurImpListView,1,1);
-
-
-            NImpHur = JavaToMySQL.TakeData(JavaToMySQL.queryHurNImp);
-            final ListView<String> HurNImpListView = new ListView<String>(NImpHur);
-            matrixLayout.add(HurNImpListView,2,1);
-
-            ImpNHur = JavaToMySQL.TakeData(JavaToMySQL.queryNHurImp);
-            final ListView<String> NHurImpListView = new ListView<String>(ImpNHur);
-            matrixLayout.add(NHurImpListView,1,2);
-
-            NImpNHur = JavaToMySQL.TakeData(JavaToMySQL.queryNHurNImp);
-            //System.out.println(ImpHur.toArray());
-            final ListView<String> NHurNImpListView = new ListView<String>(NImpNHur);
-            matrixLayout.add(NHurNImpListView,2,2);
-
-
-            mainLayout.getTabs().get(1).setContent(matrixLayout);
-            Scene scene = new Scene(mainLayout);
-            primaryStage.setScene(scene);
-            primaryStage.show();
-        } catch (Exception e ){
+            dialog = new Stage();
+            dialog.initModality(Modality.APPLICATION_MODAL);
+            dialog.initOwner(Main.getPrimaryStage());
+            VBox dialogVbox = loader.load();
+            Scene dialogScene = new Scene(dialogVbox, 300, 200);
+            dialog.setScene(dialogScene);
+            dialog.show();
+        } catch (Exception e) {
             System.out.println(e);
         }
     }
