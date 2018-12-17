@@ -13,6 +13,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.SwipeEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
+
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
@@ -87,14 +89,16 @@ public class Main extends Application {
 try {
     FXMLLoader loader2 = new FXMLLoader();
     loader2.setLocation(Main.class.getResource("day2.fxml"));
-    Pane dayLayout = loader2.load();
+    GridPane dayLayout = loader2.load();
+    JavaToMySQL jtmsql = new JavaToMySQL();
+    jtmsql.main();
    // ListView<String> listView = new ListView<String>;
    // dayLayout.
+    ObservableList<String> lefts = FXCollections.observableArrayList();
 
-
-
-
-
+    lefts = jtmsql.TakeData();
+    final ListView<String> leftListView = new ListView<String>(lefts);
+    dayLayout.add(leftListView,1,0);
 
     //listView.setVisible(false);
     //names.addAll("123","345");
