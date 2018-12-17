@@ -1,11 +1,8 @@
 package sample;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.util.converter.DateStringConverter;
 
 import java.sql.*;
-import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 
 public class JavaToMySQL {
@@ -19,14 +16,16 @@ public class JavaToMySQL {
     private static Statement stmt;
     private static ResultSet rs;
 
-    static String queryCreate = "create table if not exists tasks (id int(11) NOT NULL auto_increment, name varchar(50) NOT NULL, \n" +
-            " start_date date, finish_date date, important boolean, PRIMARY KEY (id));\n";
-     static String queryHurImp = "Select * from tasks where CURDATE() between start_date and finish_date AND important;\n";
-    static String queryHurNImp = "Select * from tasks where CURDATE() between start_date and finish_date AND not important ;\n";
-    static String queryNHurImp = "Select * from tasks where ((CURDATE() < start_date) OR (start_date is null and finish_date is null)) AND important ;\n";
-    static String queryNHurNImp = "Select * from tasks where ((CURDATE() < start_date) OR (start_date is null and finish_date is null)) AND not important ;\n";
-
     public static void main() {
+        String queryCreate = "create table if not exists tasks (id int(11) NOT NULL auto_increment, name varchar(50) NOT NULL, \n" +
+                " start_date date, finish_date date, important boolean, PRIMARY KEY (id));\n";
+        String queryHurImp = "Select * from tasks where CURDATE() between start_date and finish_date AND important;\n";
+        String queryHurNImp = "Select * from tasks where CURDATE() between start_date and finish_date AND not important ;\n";
+        String queryNHurImp = "Select * from tasks where ((CURDATE() < start_date) OR (start_date is null and finish_date is null)) AND important ;\n";
+        String queryNHurNImp = "Select * from tasks where ((CURDATE() < start_date) OR (start_date is null and finish_date is null)) AND not important ;\n";
+
+
+
         try {
             // opening database connection to MySQL server
             con = DriverManager.getConnection(url, user, password);
@@ -34,42 +33,36 @@ public class JavaToMySQL {
             // getting Statement object to execute query
             stmt = con.createStatement();
 
-            // executing SELECT query
+
+                // executing SELECT query
             stmt.executeUpdate("use diary");
             stmt.executeUpdate(queryCreate);
-           // TakeData();
+
+            rs = stmt.executeQuery(queryHurImp);
+            while (rs.next()) {
+                //создание объекта из БД
+                Task task = new Task(rs);
+
+//добавление 1 дня
+                String count = rs.getString(2);
+                Date ds = rs.getDate(3) ;
+                Calendar cal = Calendar.getInstance();
+                cal.setTime(ds);
+                cal.add(Calendar.DATE, 1); //minus number would decrement the days
+                ds.setTime(cal.getTime().getTime());
+                String Strds = ds.toString();
+
+                System.out.println(Strds);
+            }
 
         } catch (SQLException sqlEx) {
             sqlEx.printStackTrace();
-        }
-        /*finally {
+        } finally {
             //close connection ,stmt and resultset here
-           // try { con.close(); } catch(SQLException se) { /*can't do anything */ //}
-         //   try { stmt.close(); } catch(SQLException se) { /*can't do anything */ }
-          //  try { rs.close(); } catch(SQLException se) { /*can't do anything */ }
-        //}
-    }
-    public static ObservableList<String> TakeData(String query) {
-        if (query == "For Day") {
-            query = "Select * from tasks where '" + Main.DatePicker.getValue().format(DateTimeFormatter.ofPattern("yyyy.MM.dd")) + "' between start_date and finish_date;\n";
+            try { con.close(); } catch(SQLException se) { /*can't do anything */ }
+            try { stmt.close(); } catch(SQLException se) { /*can't do anything */ }
+            try { rs.close(); } catch(SQLException se) { /*can't do anything */ }
         }
-        ObservableList<String> list = FXCollections.observableArrayList() ;
-        try {
-            stmt.executeUpdate("use diary");
-            rs = stmt.executeQuery(query);
-            while (rs.next()) {
-                Task task = new Task(rs);
-                //System.out.println(task.ToString());
-                list.addAll(task.ToString());
-                }
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-        System.out.println(list);
-        return list;
     }
-
-
-
 
 }

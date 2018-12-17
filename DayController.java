@@ -1,28 +1,35 @@
 package sample;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
 import sample.Main;
 
 public class DayController {
     @FXML
-    public Label day;
+    private Label day;
     @FXML
-    public Label month;
+    private Label month;
     @FXML
-    public Label year;
-
-
+    private Label year;
+    @FXML
     public void initialize() {
         day.setText(String.valueOf(Main.DatePicker.getValue().getDayOfMonth()));
         month.setText(String.valueOf(Main.DatePicker.getValue().getMonth()));
         year.setText(String.valueOf(Main.DatePicker.getValue().getYear()));
 
     }
+    
 
+    @FXML
+    public void previous(){
+        Main.DatePicker.setValue(Main.DatePicker.getValue().minusDays(1));
+        Main.initDateLayout(Main.getPrimaryStage());
+    }
+    public void next(){
+        Main.DatePicker.setValue(Main.DatePicker.getValue().plusDays(1));
+        Main.initDateLayout(Main.getPrimaryStage());
+    }
 
-
-}
+    public void addTask(){
+        sample.Main.initDialogBox();
+    }
