@@ -18,7 +18,7 @@ public class JavaToMySQL {
 
     // JDBC variables for opening and managing connection
     private static Connection con;
-    private static Statement stmt;
+    static Statement stmt;
     private static ResultSet rs;
 
 

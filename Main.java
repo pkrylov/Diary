@@ -16,6 +16,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -35,6 +37,7 @@ public class Main extends Application {
     private static Stage primaryStage; //главная сцена, используется в каждой процедуре
     static DatePicker DatePicker; //дата, получаемая при нажатии кнопки в тайле календаря
     static TabPane mainLayout;
+    static Stage dialog;
     //public static final ObservableList<String> names = FXCollections.observableArrayList();
 
     static Stage getPrimaryStage(){ // получение главной сцены (для .fxml кода)
@@ -48,7 +51,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) { //начало, запуск тайла календаря
         Main.primaryStage = primaryStage;
         Main.primaryStage.setTitle("Diary");
-        //JavaToMySQL.main();
+        JavaToMySQL.main();
         initMainLayout(primaryStage);
 
     }
@@ -86,38 +89,54 @@ public class Main extends Application {
 
 
     public static void initDateLayout(Stage primaryStage) {// запуск тайла по дням
-try {
-    FXMLLoader loader2 = new FXMLLoader();
-    loader2.setLocation(Main.class.getResource("day2.fxml"));
-    GridPane dayLayout = loader2.load();
-    JavaToMySQL jtmsql = new JavaToMySQL();
-    jtmsql.main();
-   // ListView<String> listView = new ListView<String>;
-   // dayLayout.
-    ObservableList<String> lefts = FXCollections.observableArrayList();
+    try {
+        FXMLLoader loader2 = new FXMLLoader();
+        loader2.setLocation(Main.class.getResource("day2.fxml"));
+        GridPane dayLayout = loader2.load();
+        JavaToMySQL jtmsql = new JavaToMySQL();
+        jtmsql.main();
+        // ListView<String> listView = new ListView<String>;
+        // dayLayout.
+        ObservableList<String> lefts = FXCollections.observableArrayList();
 
-    lefts = jtmsql.TakeData();
-    final ListView<String> leftListView = new ListView<String>(lefts);
-    dayLayout.add(leftListView,1,0);
+        lefts = jtmsql.TakeData();
+        final ListView<String> leftListView = new ListView<String>(lefts);
+        dayLayout.add(leftListView, 1, 0);
 
-    //listView.setVisible(false);
-    //names.addAll("123","345");
-    //names.addAll("567", "789");
-    //System.out.println(names);
-    //listView.setItems(names);
-    //System.out.println(listView);
+        //listView.setVisible(false);
+        //names.addAll("123","345");
+        //names.addAll("567", "789");
+        //System.out.println(names);
+        //listView.setItems(names);
+        //System.out.println(listView);
 
 
-    mainLayout.getSelectionModel().select(2);
-    mainLayout.getTabs().get(2).setContent(dayLayout);
-    Scene scene = new Scene(mainLayout);
-    primaryStage.setScene(scene);
-    primaryStage.show();
-} catch (Exception e ){
+        mainLayout.getSelectionModel().select(2);
+        mainLayout.getTabs().get(2).setContent(dayLayout);
+        Scene scene = new Scene(mainLayout);
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    } catch (Exception e ){
     System.out.println(e);
 }
     }
+    public static void initDialogBox() {
 
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("addTask.fxml"));
+
+            dialog = new Stage();
+            dialog.initModality(Modality.APPLICATION_MODAL);
+            dialog.initOwner(Main.getPrimaryStage());
+            VBox dialogVbox = loader.load();
+            Scene dialogScene = new Scene(dialogVbox, 300, 200);
+            dialog.setScene(dialogScene);
+            dialog.show();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
 
     public static void main(String[] args) {
         launch(args);
