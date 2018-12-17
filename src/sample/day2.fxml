@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.DayController">
+  <columnConstraints>
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints maxHeight="337.0" minHeight="98.0" prefHeight="307.0" />
+    <RowConstraints maxHeight="233.0" minHeight="0.0" prefHeight="85.0" />
+    <RowConstraints maxHeight="309.0" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="127.0" minHeight="0.0" prefHeight="10.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="20.0" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
+  </rowConstraints>
+   <children>
+       <SplitPane dividerPositions="0.6097560975609756, 0.7967479674796748" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0">
+        <items>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+               <children>
+                  <Label fx:id="day" layoutX="77.0" layoutY="60.0" prefHeight="100.0" prefWidth="123.0" text="AS" textAlignment="CENTER">
+                     <font>
+                        <Font size="96.0" />
+                     </font></Label>
+               </children>
+            </AnchorPane>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+               <children>
+
+                  <Label fx:id="month" layoutX="100.0" layoutY="11.0" text="Label" textAlignment="CENTER">
+                     <font>
+                        <Font size="18.0" />
+                     </font></Label>
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="10.0" layoutY="10.0" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+               <children>
+                  <Label fx:id="year" layoutX="100.0" layoutY="16.0" text="Label" textAlignment="CENTER">
+                     <font>
+                        <Font size="18.0" />
+                     </font></Label>
+               </children>
+            </AnchorPane>
+        </items>
+      </SplitPane>
+      <ToolBar prefHeight="40.0" prefWidth="200.0" GridPane.rowIndex="1">
+        <items>
+          <Button id="previousDay" mnemonicParsing="false" onAction="#previous" prefHeight="31.0" prefWidth="139.0" text="&lt;&lt;" />
+            <Button id="nextDay" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#next" prefHeight="31.0" prefWidth="139.0" text="&gt;&gt;" />
+        </items>
+      </ToolBar>
+      <ListView prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" />
+      <ToolBar prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+        <items>
+          <Button onAction="#addTask" id="newTask" mnemonicParsing="false" text="Add new task" />
+            <Label prefHeight="21.0" prefWidth="112.0" text="Label" />
+        </items>
+      </ToolBar>
+   </children>
+</GridPane>

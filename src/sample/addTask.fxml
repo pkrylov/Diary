@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="220.0" prefWidth="221.0" spacing="5.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label text="Name" />
+      <TextField />
+      <Label text="Start Date" />
+      <TextField />
+      <Label text="Finish Date" />
+      <TextField />
+      <CheckBox mnemonicParsing="false" text="Important" />
+      <Button alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" text="Create" textAlignment="CENTER" />
+   </children>
+</VBox>
