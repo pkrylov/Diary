@@ -14,6 +14,7 @@ import javafx.scene.control.*;
 import javafx.scene.input.SwipeEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
@@ -96,15 +97,8 @@ try {
     ObservableList<String> lefts = FXCollections.observableArrayList();
 
     lefts = jtmsql.TakeData();
-
-
-
-
     final ListView<String> leftListView = new ListView<String>(lefts);
     dayLayout.add(leftListView,1,0);
-
-
-
 
     //listView.setVisible(false);
     //names.addAll("123","345");
