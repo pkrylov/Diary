@@ -13,6 +13,8 @@ public class CalendarController {
     public void CalendarClick()
     {
         Main.initDateLayout(Main.getPrimaryStage());
+        Main.mainLayout.getSelectionModel().select(2);
+
     }
 
 }
