@@ -12,7 +12,7 @@ public class CalendarController {
     @FXML
     public void CalendarClick()
     {
-        Main.initDateLayout();
+        Main.initDateLayout(Main.getPrimaryStage());
     }
 
 }

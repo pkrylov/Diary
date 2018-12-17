@@ -81,14 +81,19 @@ public class Main extends Application {
 
 
 
-    public static void initDateLayout() {// запуск тайла по дням
-
-
-            mainLayout.getSelectionModel().select(2);
-            Scene scene = new Scene(mainLayout);
-            primaryStage.setScene(scene);
-            primaryStage.show();
-
+    public static void initDateLayout(Stage primaryStage) {// запуск тайла по дням
+try {
+    FXMLLoader loader2 = new FXMLLoader();
+    loader2.setLocation(Main.class.getResource("day.fxml"));
+    Pane dayLayout = loader2.load();
+    mainLayout.getSelectionModel().select(2);
+    mainLayout.getTabs().get(2).setContent(dayLayout);
+    Scene scene = new Scene(mainLayout);
+    primaryStage.setScene(scene);
+    primaryStage.show();
+} catch (Exception e ){
+    System.out.println(e);
+}
     }
 
 

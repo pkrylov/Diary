@@ -18,5 +18,10 @@
         <fx:include fx:id="tabMatrix" source="matrix.fxml" />
       </content>
     </Tab>
+    <Tab text="Days">
+      <content>
+        <fx:include fx:id="tabDays" source="day.fxml" />
+      </content>
+    </Tab>
   </tabs>
 </TabPane>
