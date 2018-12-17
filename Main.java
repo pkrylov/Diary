@@ -2,6 +2,8 @@ package sample;
 
 import com.sun.javafx.scene.control.skin.DatePickerSkin;
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -31,7 +33,7 @@ public class Main extends Application {
     private static Stage primaryStage; //главная сцена, используется в каждой процедуре
     static DatePicker DatePicker; //дата, получаемая при нажатии кнопки в тайле календаря
     static TabPane mainLayout;
-
+    //public static final ObservableList<String> names = FXCollections.observableArrayList();
 
     static Stage getPrimaryStage(){ // получение главной сцены (для .fxml кода)
         return primaryStage;
@@ -84,8 +86,24 @@ public class Main extends Application {
     public static void initDateLayout(Stage primaryStage) {// запуск тайла по дням
 try {
     FXMLLoader loader2 = new FXMLLoader();
-    loader2.setLocation(Main.class.getResource("day.fxml"));
+    loader2.setLocation(Main.class.getResource("day2.fxml"));
     Pane dayLayout = loader2.load();
+   // ListView<String> listView = new ListView<String>;
+   // dayLayout.
+
+
+
+
+
+
+    //listView.setVisible(false);
+    //names.addAll("123","345");
+    //names.addAll("567", "789");
+    //System.out.println(names);
+    //listView.setItems(names);
+    //System.out.println(listView);
+
+
     mainLayout.getSelectionModel().select(2);
     mainLayout.getTabs().get(2).setContent(dayLayout);
     Scene scene = new Scene(mainLayout);

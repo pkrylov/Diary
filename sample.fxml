@@ -20,7 +20,7 @@
     </Tab>
     <Tab text="Days">
       <content>
-        <fx:include fx:id="tabDays" source="day.fxml" />
+        <fx:include fx:id="tabDays" source="day2.fxml" />
       </content>
     </Tab>
   </tabs>
